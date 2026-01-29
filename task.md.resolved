@@ -1,0 +1,13 @@
+# Tasks: GitHub API Postman Autotest
+
+- [x] Analyze GitHub API requirements (Auth, Endpoints) <!-- id: 0 -->
+- [x] Design Postman Collection structure (Variables, Requests, Tests) <!-- id: 1 -->
+- [x] Create Postman Collection JSON file <!-- id: 2 -->
+    - [x] Add "Get Authenticated User" request <!-- id: 3 -->
+    - [x] Add "Create Repository" request with dynamic data <!-- id: 4 -->
+    - [x] Add "Delete Repository" request for cleanup <!-- id: 5 -->
+    - [x] Add Tests scripts (assertions) <!-- id: 6 -->
+- [x] Create README or Instructions for importing and running <!-- id: 7 -->
+- [x] Verify execution using newman (optional/if requested) or manual import instructions <!-- id: 8 -->
+- [x] Prepare files for export (clean up tokens) <!-- id: 9 -->
+- [/] Push code to GitLab repository <!-- id: 10 -->

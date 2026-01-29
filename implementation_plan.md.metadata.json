@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to create a Postman Collection JSON for GitHub API testing. Includes authentication setup and CRUD operations on repositories.",
+  "updatedAt": "2026-01-29T12:38:44.109977200Z"
+}

@@ -1,0 +1,189 @@
+{
+    "info": {
+        "_postman_id": "b3e6d1a0-5c4a-4b5e-9e8d-1a2b3c4d5e6f",
+        "name": "GitHub API Test",
+        "description": "Automated tests for GitHub API operations: Get User, Create Repository, Delete Repository.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. Get Authenticated User",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Status code is 200\", function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test(\"Response has login\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    pm.expect(jsonData).to.have.property('login');",
+                            "    // Save owner name for future requests",
+                            "    pm.collectionVariables.set(\"owner\", jsonData.login);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/user",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "user"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "2. Create Repository",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "// Generate a random repository name",
+                            "const randomInt = Math.floor(Math.random() * 100000);",
+                            "const repoName = \"postman-auto-test-\" + randomInt;",
+                            "pm.collectionVariables.set(\"repoName\", repoName);",
+                            "console.log(\"Generated repo name: \" + repoName);"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Status code is 201 Created\", function () {",
+                            "    pm.response.to.have.status(201);",
+                            "});",
+                            "",
+                            "pm.test(\"Repository name matches\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"repoName\"));",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"name\": \"{{repoName}}\",\n    \"description\": \"Repository created via Postman Autotest\",\n    \"private\": false,\n    \"has_issues\": true,\n    \"has_projects\": true,\n    \"has_wiki\": true\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/user/repos",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "user",
+                        "repos"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "3. Delete Repository",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Status code is 204 No Content\", function () {",
+                            "    pm.response.to.have.status(204);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/repos/{{owner}}/{{repoName}}",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "repos",
+                        "{{owner}}",
+                        "{{repoName}}"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "string"
+            }
+        ]
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "https://api.github.com",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "owner",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "repoName",
+            "value": "",
+            "type": "string"
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+{
+    "name": "postman-github-api-tests",
+    "description": "Automated Postman tests for GitHub API",
+    "private": false
+}
