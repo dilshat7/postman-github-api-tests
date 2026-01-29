@@ -1,51 +1,51 @@
 # GitHub API Postman Collection
 
-Эта коллекция содержит автотесты для API GitHub. Она выполняет проверку авторизации, создает тестовый репозиторий и удаляет его.
+This collection contains automated tests for the GitHub API. It verifies authentication, creates a test repository, and then deletes it.
 
-## Предварительные требования (Prerequisites)
+## Prerequisites
 
-1.  **Postman**: Установленное приложение Postman.
+1.  **Postman**: Installed Postman application.
 2.  **GitHub Token**:
-    *   Создайте Personal Access Token (PAT): [GitHub Settings -> Developer settings -> Personal access tokens -> Tokens (classic)](https://github.com/settings/tokens).
-    *   Права (Scopes): выберите `repo` (Full control of private repositories) или `public_repo` (если планируете создавать только публичные), и `user` (read:user).
-    *   **Важно**: Скопируйте токен сразу, вы его больше не увидите.
+    *   Create a Personal Access Token (PAT): [GitHub Settings -> Developer settings -> Personal access tokens -> Tokens (classic)](https://github.com/settings/tokens).
+    *   **Scopes**: Select `repo` (Full control of private repositories) or `public_repo` (if you plan to create only public ones), and `user` (read:user).
+    *   **Important**: Copy the token immediately; you will not be able to see it again.
 
-## Установка и запуск
+## Installation and Run
 
-1.  **Импорт коллекции**:
-    *   В Postman нажмите кнопку **Import** (слева сверху).
-    *   Перетащите файл `github_api_test.postman_collection.json` или выберите его.
+1.  **Import Collection**:
+    *   Click **Import** in Postman (top left).
+    *   Drag and drop the `github_api_test.postman_collection.json` file or select it.
 
-2.  **Настройка переменных**:
-    *   Нажмите на название коллекции **GitHub API Test** в левой панели.
-    *   Перейдите на вкладку **Variables**.
-    *   Найдите переменную `token`.
-    *   В колонку **Current Value** вставьте ваш GitHub PAT.
-    *   **Обратите внимание**: В целях безопасности поле `token` в файле сейчас пустое. Вам нужно вставить токен перед запуском.
-    *   Переменные `owner` и `repoName` оставьте пустыми — они заполнятся автоматически в процессе выполнения тестов.
-    *   Нажмите **Save** (Ctrl+S).
+2.  **Configure Variables**:
+    *   Click on the collection name **GitHub API Test** in the left sidebar.
+    *   Go to the **Variables** tab.
+    *   Find the `token` variable.
+    *   Paste your GitHub PAT into the **Current Value** column.
+    *   **Note**: For security reasons, the `token` field in the file is currently empty. You must insert your token before running.
+    *   Leave `owner` and `repoName` variables empty — they will be populated automatically during test execution.
+    *   Click **Save** (Ctrl+S).
 
-3.  **Запуск тестов**:
-    *   Опять нажмите на название коллекции **GitHub API Test**.
-    *   Нажмите кнопку **Run** (сверху справа, на панели вкладок коллекции).
-    *   В окне "Runner" убедитесь, что все галочки проставлены.
-    *   Нажмите **Run GitHub API Test**.
+3.  **Run Tests**:
+    *   Click on the collection name **GitHub API Test** again.
+    *   Click the **Run** button (top right, on the collection tab).
+    *   In the "Runner" window, ensure all checkboxes are selected.
+    *   Click **Run GitHub API Test**.
 
-## Что проверяют тесты?
+## What do the tests check?
 
 1.  **Get Authenticated User**:
-    *   Проверяет статус код 200.
-    *   Получает логин пользователя и сохраняет его в переменную `owner`.
+    *   Checks for status code 200.
+    *   Retrieves the user login and saves it to the `owner` variable.
 2.  **Create Repository**:
-    *   Генерирует уникальное имя репозитория (например, `postman-auto-test-12345`).
-    *   Отправляет POST запрос.
-    *   Проверяет статус код 201 (Created).
-    *   Проверяет, что создан репозиторий с нужным именем.
+    *   Generates a unique repository name (e.g., `postman-auto-test-12345`).
+    *   Sends a POST request.
+    *   Checks for status code 201 (Created).
+    *   Verifies that the repository was created with the correct name.
 3.  **Delete Repository**:
-    *   Использует сохраненные `owner` и `repoName`.
-    *   Отправляет DELETE запрос.
-    *   Проверяет статус код 204 (No Content).
+    *   Uses the saved `owner` and `repoName`.
+    *   Sends a DELETE request.
+    *   Checks for status code 204 (No Content).
 
-## Результат
+## Result
 
-После выполнения вы должны увидеть **зеленые** плашки "PASS" напротив каждого теста в Runner.
+After execution, you should see **green** "PASS" badges next to each test in the Runner.
